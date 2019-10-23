@@ -75,9 +75,10 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
   if(!audioEl.src) {
     // TODO(you): Use the spotifyApi to searchTracks for your input. Documentation can be found at:
     // https://doxdox.org/jmperez/spotify-web-api-js#src-spotify-web-api.js-constr.prototype.searchtracks
-    spotifyApi.searchTracks('cyanide', {limit: 1})
+    spotifyApi.searchTracks('lemon Rihanna', {limit: 1})
       .then((results) => {
-          let previewUrl = "https://p.scdn.co/mp3-preview/f46092682053fdc38645a6e3379e25aed6b970aa?cid=2afca98576b4421595a2802803d0b92a"// TODO(you): Access track from results to find a previewUrl.
+          let previewUrl = results.tracks.items[0].preview_url
+          //let previewUrl = "https://p.scdn.co/mp3-preview/f46092682053fdc38645a6e3379e25aed6b970aa?cid=2afca98576b4421595a2802803d0b92a"// TODO(you): Access track from results to find a previewUrl.
         if (previewUrl) {
           // Sets the HTML audio element source to the music.
           audioEl.src = previewUrl;
