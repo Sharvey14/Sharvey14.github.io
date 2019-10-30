@@ -21,12 +21,14 @@ class AbstractVisualizer {
     context.lineWidth = rectangleProperties.width || 5;
     context.strokeStyle = rectangleProperties.color || '#FF00000';
 
+context.beginPath();
     context.moveTo(point1.x, point1.y);
     context.lineTo(point2.x, point2.y);
     context.lineTo(point3.x, point3.y);
     context.lineTo(point4.x, point4.y);
     context.lineTo(point1.x, point1.y);
     context.closePath();
+    context.stroke();
     context.fill();
   }
 
@@ -34,22 +36,28 @@ class AbstractVisualizer {
     // TODO(week 3): Implement.
     const context = this.canvas.getContext("2d");
     context.fillStyle = squareProperties.color;
-    context.moveTo(point1.x, point1.y);
+    context.moveTo(startingPoint.x, startingPoint.y);
     context.beginPath();
-    context.lineTo(point2.x + sideLength, point2.y);
-    context.lineTo(point3.x + sideLength, point3.y + sideLength);
-    context.lineTo(point4.x, point4.y + sideLength);
-    context.lineTo(point1.x, point1.y);
+    context.lineTo(startingPoint.x + sideLength, startingPoint.y);
+    context.lineTo(startingPoint.x + sideLength, startingPoint.y + sideLength);
+    context.lineTo(startingPoint.x, startingPoint.y + sideLength);
+    context.lineTo(startingPoint.x, startingPoint.y);
     context.fill();
-    context.lineWidth = rectableProperties.width;
-    context.strokeStyle = rectangleProperties.color;
+    context.lineWidth = squareProperties.width;
+    context.strokeStyle = squareProperties.color;
     context.stroke();
   }
 
-  drawCircle() {
+  drawCircle(point,radius,color) {
     // TODO(week 3): Implement.
     // See here for more information:
     // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc
+    const context = this.canvas.getContext("2d");
+    context.beginPath();
+    context.arc(point.x, point.y, radius, 0, 2 * Math.PI);
+    context.fillStyle = color;
+    context.fill();
+    context.stroke();
   }
 
   drawBackground(canvas, canvasDimensions, color = BACKGROUND_COLOR) {

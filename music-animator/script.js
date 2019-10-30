@@ -20,7 +20,7 @@ class MyVisualizer extends AbstractVisualizer {
       const audioEl = document.querySelector('#audio');
 
       // If we pass an index greater than the # peaks,
-      if (peakIndex >= this.peaks.length) {
+      if (peakIndex >= this.peaks.length()) {
           return;
       }
 
@@ -75,7 +75,7 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
   if(!audioEl.src) {
     // TODO(you): Use the spotifyApi to searchTracks for your input. Documentation can be found at:
     // https://doxdox.org/jmperez/spotify-web-api-js#src-spotify-web-api.js-constr.prototype.searchtracks
-    spotifyApi.searchTracks('lemon Rihanna', {limit: 1})
+    spotifyApi.searchTracks('west coast', {limit: 1})
       .then((results) => {
           let previewUrl = results.tracks.items[0].preview_url
           //let previewUrl = "https://p.scdn.co/mp3-preview/f46092682053fdc38645a6e3379e25aed6b970aa?cid=2afca98576b4421595a2802803d0b92a"// TODO(you): Access track from results to find a previewUrl.
@@ -112,3 +112,8 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
 		document.getElementById('playCircle').setAttribute("class", "playing");
   }
 });
+
+let visualizer = new MyVisualizer();
+visualizer.drawRectangle({x: 200, y:200}, {x:300, y:200}, {x:300, y:300}, {x:200, y:300});
+visualizer.drawCircle({x: 100, y:100}, 50, '#FF0000');
+visualizer.drawSquare({x: 300, y:300}, 65, {color: '#00ff00', width:5});
