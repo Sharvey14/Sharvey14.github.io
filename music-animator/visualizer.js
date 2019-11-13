@@ -89,11 +89,15 @@ function generateRandomValue(minValue = 1, maxValue = 10) {
 
 function generateRandomPoint() {
   // TODO:
-  // Use generateRandomValue to create a ranom x and a random y value.
+  // Use generateRandomValue to create a random x and a random y value.
   // HINT: we can use the constants CANVAS_HEIGHT and CANVAS_WIDTH for the max
   //     x and y values.
+
+  const x = generateRandomValue(0, CANVAS_WIDTH);
+  const y = generateRandomValue(0, CANVAS_HEIGHT);
+
   return {
-    x: 0,
-    y: 0,
+    x: x,
+    y: y,
   };
 }

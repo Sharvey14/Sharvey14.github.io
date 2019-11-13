@@ -30,7 +30,7 @@ class MyVisualizer extends AbstractVisualizer {
       // 3) Compare the time properties to peak properties (part 1 and 2 above):
       //    -- If the audio's current time is greater or equal to the time of
       //    the peak, draw visualizations (drawShapes).
-      if (true) {
+      if (this.peaks[peakIndex].timeOfPeak <= audioEl.currentTime) {
 
         // Update the frame.
         requestAnimationFrame(() => {
@@ -49,7 +49,12 @@ class MyVisualizer extends AbstractVisualizer {
      */
     drawShapes() {
         // Look at AbstractVisualizer class for functions.
+        this.drawSquare(generateRandomPoint(), generateRandomValue(), {color:generateRandomColor()});
+        this.drawCircle(generateRandomPoint(), generateRandomValue(), generateRandomColor());
+
     }
+
+    clear
 }
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -89,10 +94,17 @@ document.getElementById('playButton').addEventListener('click', (clickEvent) => 
             // TODO(you): Create an instance of MyVisualizer using the
             // analyzed audio.
 
+            const analyzedAudio = analyzeAudio(audio);
+            const visualizer = new MyVisualizer(analyzedAudio);
+
             audioEl.play();
+
+            generateRandomPoint(0,0);
 
             // Use MyVisualizer's startVisual to start visualization.
             visualizer.startVisual();
+
+
           });
         } else {
           console.warn('This song does not have a preview');
