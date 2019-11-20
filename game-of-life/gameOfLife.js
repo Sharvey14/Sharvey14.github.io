@@ -21,6 +21,8 @@ class Canvas {
     this.obj = canvasElement;
     this.pixelWidth = 803;
     this.pixelHeight = 506;
+    canvasElement.width = this.pixelWidth;
+    canvasElement.height = this.pixelHeight
 
     container.appendchild(canvasElement);
 
@@ -30,11 +32,18 @@ class Canvas {
   }
 
   setGridSize(gridSize) {
-    this.obj
+
   }
 
-  draw(){
-
+  draw(cells){
+    this.ctx.lineWidth = 1;
+    ctx.strokeStyle = "#999";
+    for(let e = this.cellSize; e < this.pixelHeight; e += this.cellSize;) {
+      this.ctx.beginPath();
+      this.ctx.lineTo();
+      this.ctx.moveTo(x, y);
+      this.ctx.stroke();
+    }
   }
 
   click(fn){
