@@ -40,9 +40,15 @@ class Canvas {
     ctx.strokeStyle = "#999";
     for(let e = this.cellSize; e < this.pixelHeight; e += this.cellSize;) {
       this.ctx.beginPath();
-      this.ctx.lineTo();
       this.ctx.moveTo(x, y);
+      this.ctx.lineTo();
       this.ctx.stroke();
+
+      for(let e = this.cellSize; e < this.pixelWidth; e += this.cellSize;) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x, y);
+        this.ctx.lineTo();
+        this.ctx.stroke();
     }
   }
 
