@@ -3,88 +3,272 @@ class GameOfLife {
   }
 
   next(shape) {
-  }
-}
+    console.log(shape);
+    let neighbours = {};
+    for(let i = 0; i < shape.length; i = i + 1){
+      let cell = shape[i];
+      let x = cell[0];
+      let y = cell[1];
 
-class Canvas {
-  constructor(container) {
-    let canvasElement = document.createElement('canvas');
-    this.obj = canvasElement;
-    this.pixelWidth = 803;
-    this.pixelHeight = 506;
-    container.appendChild(canvasElement);
-    this.ctx = canvasElement.getContext('2d');
-    this.setGridSize(11);
+        //Top
+        let key = 'c' + (x) + ',' + (y - 1);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x, y - 1],
+          };
+        }
+
+        //Top-left
+        let key = 'c' + (x - 1) + ',' + (y - 1);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x - 1, y - 1],
+          };
+        }
+
+        //Top-right
+        let key = 'c' + (x + 1) + ',' + (y - 1);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x + 1, y - 1],
+          };
+        }
+
+        //Bottom
+        let key = 'c' + (x) + ',' + (y + 1);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x, y + 1],
+          };
+        }
+
+        //Bottom right
+        let key = 'c' + (x + 1) + ',' + (y + 1);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x + 1, y + 1],
+          };
+        }
+
+        //Bottom left
+        let key = 'c' + (x - 1) + ',' + (y - 1);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x - 1, y - 1],
+          };
+        }
+
+        //Left
+        let key = 'c' + (x - 1) + ',' + (y);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x - 1, y],
+          };
+        }
+
+        //Right
+        let key = 'c' + (x + 1) + ',' + (y);
+        if(neighbours[key]) {
+          neighbours[key].n = neighbours[keys].n + 1;
+        } else {
+          neighbours[keys] = {
+            n: 1,
+            cell: [x + 1, y],
+          };
+        }
+
+      }
+
+      for(let i = 0; i < shape.length; i = i + 1) {
+        let cell = shape[i];
+        let x = cell[0];
+        let y = cell[1];
+
+        let key = 'c' + x + ',' + y;
+        if(neighbours[key]) {
+          neighbours[keys].populated = true;
+        }
+      }
+      let nextShape = [];
+      for(let key in neighbours) {
+        let currentNeighbour = neighbours[key];
+        let numOfNeighbours = currentNeighbour.n;
+        let populated = currentNeighbour.populated;
+        let cell = currentNeighbour.cell;
+
+
+        // let cell = shape[i];
+        // let x = cell[0];
+        // let y = cell[1];
+        if(){
+          nextShape.push(cell);
+        }
+      }
+      console.log(x + ',' + y);
+      return shape;
+    }
   }
 
-  draw() {
+  class Canvas {
+    constructor(container) {
+      let canvasElement = document.createElement('canvas');
+      this.obj = canvasElement;
+      this.pixelWidth = 803;
+      this.pixelHeight = 506;
+      canvasElement.width = this.pixelWidth;
+      canvasElement.height = this.pixelHeight;
+      container.appendChild(canvasElement);
+      this.ctx = canvasElement.getContext('2d');
+      this.setGridSize(11);
+    }
+
+    draw(cells) {
+      this.ctx.fillStyle = "#7e7e7e";
+      this.ctx.lineWidth = 1;
+      this.ctx.fillRect (0, 0, this.pixelWidth, this.pixelHeight);
+      this.ctx.strokeStyle = "#999";
+
+      for(let n = this.cellSize; n < this.pixelWidth; n += this.cellSize) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(n + 0.5, 0);
+        this.ctx.lineTo(n + 0.5, this.pixelHeight);
+        this.ctx.stroke();
+      }
+      for(let n = this.cellSize; n < this.pixelHeight; n += this.cellSize) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, n + 0.5);
+        this.ctx.lineTo(this.pixelWidth, n + 0.5);
+        this.ctx.stroke();
+      }
+
+      this.ctx.fillStyle = "yellow";
+      this.ctx.lineWidth = 1;
+      cells.forEach((cell, i) => {
+        this.ctx.fillRect(
+          cell[0] * this.cellSize + 1,
+          cell[1] * this.cellSize + 1,
+          this.cellSize - 1,
+          this.cellSize - 1);
+      });
+    }
+
+    click(fn) {
+      this.obj.addEventListener('click', (evt) => {
+        let rect = canvas.obj.getBoundingClientRect();
+        let left = rect.left;
+        let top = rect.top;
+        let cellSize = canvas.cellSize;
+        let clickEvent = {};
+        clickEvent.cellX = Math.floor((evt.clientX - left) / cellSize);
+        clickEvent.cellY = Math.floor((evt.clientY - top) / cellSize);
+        fn(clickEvent);
+      });
+    }
+
+    getDimension() {
+    }
+
+    getGridSize() {
+    }
+
+    setGridSize(size) {
+      this.cellSize = size;
+    }
   }
 
-  click(fn) {
+  class Shape {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.current = [];
+      this.collection = {};
+    }
+
+    get() {
+      return this.current;
+    }
+
+    set(shape)  {
+      this.current = shape;
+    }
+
+    copy(shape) {
+    }
+
+    redraw() {
+      this.canvas.draw(this.current);
+    }
+
+    center() {
+    }
+
+    offset(dx, dy) {
+    }
+
+    toggle(cell) {
+      this.current.push(cell);
+      this.redraw();
+    }
   }
 
-  getDimension() {
+  class Controls {
+    constructor(canvas, shape, gameOfLife) {
+      this.canvas = canvas;
+      this.shape = shape;
+      this.gameOfLife = gameOfLife;
+      this.generation = 0;
+    }
+
+    init(shapes) {
+      this.canvas.click((evt) => {
+        this.shape.toggle([evt.cellX, evt.cellY]);
+      });
+
+  		document.getElementById('next').addEventListener('click', () => {
+  			this.next();
+  		});
+    }
+
+    setGeneration(gen) {
+    }
+
+    animate() {
+    }
+
+    next() {
+  		let shapeData = this.shape.get();
+  		let newShapeData = this.gameOfLife.next(shapeData);
+  		this.shape.set(newShapeData);
+  		this.shape.redraw();
+    }
   }
 
-  getGridSize() {
-  }
+  let canvasElement = document.getElementById('canvas-div');
+  let canvas = new Canvas(canvasElement);
+  let shape = new Shape(canvas);
+  let gameOfLife = new GameOfLife();
+  let controls = new Controls(canvas, shape, gameOfLife);
 
-  setGridSize(size) {
-  }
-}
-
-class Shape {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.current = [];
-    this.collection = {};
-  }
-
-  get() {
-  }
-
-  set(shape)  {
-  }
-
-  copy(shape) {
-  }
-
-  redraw() {
-  }
-
-  center() {
-  }
-
-  offset(dx, dy) {
-  }
-
-  toggle(cell) {
-  }
-}
-
-class Controls {
-  constructor(canvas, shape, gameOfLife) {
-    this.canvas = canvas;
-    this.shape = shape;
-    this.gameOfLife = gameOfLife;
-    this.generation = 0;
-  }
-
-  init(shapes) {
-  }
-
-  setGeneation(gen) {
-  }
-
-  animate() {
-  }
-
-  next() {
-  }
-}
-
-let canvasElement = document.getElementById('canvas-div');
-let canvas = new Canvas(canvasElement);
-let shape = new Shape(canvas);
-let gameOfLife = new GameOfLife();
-let controls = new Controls(canvas, shape, gameOfLife);
+  controls.init(shape.collection);
+  //controls.shape.center();
+  controls.shape.redraw();
